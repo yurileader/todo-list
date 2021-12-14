@@ -1,3 +1,4 @@
+![TodoList](https://github.com/yurileader/assets/blob/master/TodoList.jpg)
 # todo-list
 
 ## Project setup
