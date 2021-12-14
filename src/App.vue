@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-md">
     <div class="logo">
       <img
         id="logoTodo"
@@ -21,39 +21,35 @@
         </button>
       </div>
     </form>
-    <div class="a grid mt-5">
-      <div class="d-flex justify-content-center" v-for="t in todos" :key="t.id">
-        <div class="">
-          <i class="bi bi-clock "></i>
-        </div>
-        <div class="ps-3 col-8 d-flex">
-          <p>{{ t.id}}</p>
-          <p>{{ t.descricao }}</p>
-        </div>
-        <div class="col-2">
-          <button type="button" class="btn  link-danger" id="concluir">
-          Concluir
-        </button>
-        <button type="button" class="btn link-primary ms-1" id="excrluir">
-          Excluir
-        </button>
-        </div>
-      </div>
-    </div>
+
+    <TodoList v-for="t in todos" :key="t.id" :todo="t" @toggle="toggleTodo(t)">
+    </TodoList>
   </div>
 </template>
 
 <script>
+import TodoList from "./components/TodoList.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: { TodoList },
   data() {
-    return { todos: [], todo: { checked: false, descricao: "" } };
+    return { todos: [], todo: { checked: false } };
   },
   methods: {
     SalvarTodo(todo) {
       todo.id = Date.now();
       this.todos.push(todo);
+    },
+
+    toggleTodo(todo) {
+      const index = this.todos.findIndex((item) => item.id === todo.id);
+
+if (index > -1) {
+        const checked = !this.todos[index].checked;
+        console.log(checked);
+        `${this.todos[index] , { ...this.todos[index].checked = checked }}`;
+      }
     },
   },
 };
@@ -63,6 +59,7 @@ export default {
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 .logo {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
