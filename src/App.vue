@@ -22,8 +22,15 @@
       </div>
     </form>
 
-    <TodoList v-for="t in todos" :key="t.id" :todo="t" @toggle="toggleTodo(t)">
+      <TodoList
+      v-for="t in todos"
+      :key="t.id"
+      :todo="t"
+      @toggle="toggleTodo(t)"
+      @remove="excluir(todo)"
+    >
     </TodoList>
+    
   </div>
 </template>
 
@@ -34,7 +41,7 @@ export default {
   name: "App",
   components: { TodoList },
   data() {
-    return { todos: [], todo: { checked: false } };
+    return { todos: [], todo: { checked: false }};
   },
   methods: {
     SalvarTodo(todo) {
@@ -45,12 +52,21 @@ export default {
     toggleTodo(todo) {
       const index = this.todos.findIndex((item) => item.id === todo.id);
 
-if (index > -1) {
+      if (index > -1) {
         const checked = !this.todos[index].checked;
         console.log(checked);
-        `${this.todos[index] , { ...this.todos[index].checked = checked }}`;
+        `${(this.todos[index], { ...(this.todos[index].checked = checked) })}`;
       }
     },
+
+    excluir(todo){
+      const index = this.todos.findIndex((item) => item.id === todo.id);
+
+      if (index > -1) {
+        this.todos.splice(index, 1)
+        
+      }
+    }
   },
 };
 </script>
@@ -69,4 +85,6 @@ if (index > -1) {
   height: 90px;
   align-content: center;
 }
+
+
 </style>
